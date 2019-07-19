@@ -1,3 +1,5 @@
+
+
 # today
 
 对于空类
@@ -153,7 +155,7 @@ public:
 
 
 
-```
+```c++
 int main(){
 	Person p_1 = 1;
 }
@@ -164,3 +166,44 @@ int main(){
 ```error: invalid initialization of non-const reference of type ‘Person&’ from an rvalue of type ‘Person’```
 
 这句话函数
+
+
+
+```c++
+int main(){
+  Person p_1 ;
+    p_1 = 1;  
+}
+```
+
+如果上述调用在肤质构造函数那里会编译报错, 原因其实很简单,因为 右边的1是纯右值 及时转换成为, 但是拷贝和赋值构造函数又要求传入的必须是左值所以报错,想改正 有以下办法,添加 移动构造函数或者,移动赋值函数
+
+
+
+去掉 拷贝和赋值构造函数这样,程序会调用转换构造函数.
+
+
+
+弱引用,强引用.
+
+
+
+
+
+move可以理解成偷,当一个变量被move后,他指向的区域内容都没有了,对于自定义的里的要重写移动拷贝和移动赋值,要不然还是会发生浅拷贝的现象.
+
+
+
+
+
+智能指针源码分析
+
+
+
+explicit 可以解决隐式类型转换的问题.
+
+unique_ptr
+
+share_ptr
+
+他们只能使用单一类型,如果是array格式需要重写deleter
